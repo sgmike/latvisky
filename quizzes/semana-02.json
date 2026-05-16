@@ -1,0 +1,89 @@
+{
+  "title": "Quiz Semana 2 — Los casos",
+  "description": "10 preguntas sobre Nominativo, Acusativo, Genitivo, Dativo, Locativo, instrumental con ar, y concordancia de adjetivos.",
+  "weekRef": 2,
+  "questions": [
+    {
+      "id": 1,
+      "type": "fill_blank",
+      "context": "Acusativo",
+      "question": "Completa: 'Es lasu ___' (libro = grāmata, fem)",
+      "answer": ["grāmatu"],
+      "explanation": "Objeto directo va en acusativo. Fem decl. 4: -a → -u. *grāmata → grāmatu*."
+    },
+    {
+      "id": 2,
+      "type": "fill_blank",
+      "context": "Genitivo tras NAV",
+      "question": "Completa: 'Man nav ___' (dinero = nauda, fem)",
+      "answer": ["naudas"],
+      "explanation": "Después de NAV el objeto va en genitivo. Fem decl. 4: -a → -as. *nauda → naudas*."
+    },
+    {
+      "id": 3,
+      "type": "fill_blank",
+      "context": "Dativo con patikt",
+      "question": "Completa el pronombre: '___ patīk kafija.' (a mí me gusta el café)",
+      "answer": ["Man", "man"],
+      "explanation": "*Patikt* rige dativo. 1ª persona singular dativo = MAN. Estructura: [dativo persona] + patīk + [nominativo cosa]."
+    },
+    {
+      "id": 4,
+      "type": "fill_blank",
+      "context": "Locativo (ubicación)",
+      "question": "Completa: 'Es dzīvoju ___.' (en Rīga — usa locativo)",
+      "answer": ["Rīgā"],
+      "explanation": "Ubicación = locativo SIN preposición. Rīga (decl. 4 fem) → Rīgā (vocal larga -ā)."
+    },
+    {
+      "id": 5,
+      "type": "translate",
+      "context": "Dirección uz+acc",
+      "question": "Traduce: 'Voy a la tienda.' (tienda = veikals)",
+      "answer": ["Es eju uz veikalu", "Es eju uz veikalu."],
+      "explanation": "Dirección hacia un lugar = UZ + acusativo. *veikals (m1) → veikalu*."
+    },
+    {
+      "id": 6,
+      "type": "translate",
+      "context": "Instrumental ar (singular)",
+      "question": "Traduce: 'Hablo con mi madre.'",
+      "answer": ["Es runāju ar māti", "Es runāju ar savu māti", "Es runāju ar māti."],
+      "explanation": "Singular con AR → acusativo. Māte (decl. 5) → māti. Opcional: savu = posesivo reflexivo."
+    },
+    {
+      "id": 7,
+      "type": "translate",
+      "context": "Instrumental ar (plural)",
+      "question": "Traduce: 'Vivimos con nuestros padres.' (padres = vecāki)",
+      "answer": ["Mēs dzīvojam ar vecākiem", "Mēs dzīvojam ar saviem vecākiem", "Mēs dzīvojam ar mūsu vecākiem"],
+      "explanation": "Plural con AR → dativo. *vecāki → vecākiem*."
+    },
+    {
+      "id": 8,
+      "type": "multiple_choice",
+      "context": "Concordancia de adjetivos",
+      "question": "¿Cómo se dice 'una casa blanca'?",
+      "options": ["balts māja", "balta māja", "balti māja", "baltu māja"],
+      "answer": 1,
+      "explanation": "Māja es femenino sg → adjetivo masculino *balts* concuerda como *balta* (fem sg)."
+    },
+    {
+      "id": 9,
+      "type": "multiple_choice",
+      "context": "Preposición + caso",
+      "question": "¿Qué caso rige la preposición BEZ (sin)?",
+      "options": ["Nominativo", "Acusativo", "Genitivo", "Dativo"],
+      "answer": 2,
+      "explanation": "BEZ siempre va con genitivo. *bez cukura* (sin azúcar), *bez tevis* (sin ti)."
+    },
+    {
+      "id": 10,
+      "type": "translate",
+      "context": "Construcción 'tener' + concordancia de número",
+      "question": "Traduce: 'Tengo dos hermanas.'",
+      "answer": ["Man ir divas māsas", "Man ir divas māsas."],
+      "explanation": "Estructura 'tener': [dat] + IR + [nom]. *Divas* (fem) concuerda con *māsas* (fem). Cuidado: NO uses *divi* (masc)."
+    }
+  ]
+}

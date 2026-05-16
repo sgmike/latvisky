@@ -67,10 +67,12 @@ const WEEKS = [
 const DECKS = [
   { id: 1, week: 1, name: "Semana 1 — Fundamentos", file: "flashcards/semana-01.csv", topic: "Saludos, pronombres, būt, familia" },
   { id: 2, week: 2, name: "Semana 2 — Casa, cuerpo, gustos", file: "flashcards/semana-02.csv", topic: "Vivienda, muebles, cuerpo humano, verbos de gusto" },
+  { id: 3, week: 3, name: "Semana 3 — Pasado, compras, salud", file: "flashcards/semana-03.csv", topic: "Pasado, posesivos, compras, direcciones, salud" },
 ];
 
 const QUIZZES = [
   { id: 1, week: 1, name: "Quiz Semana 1", file: "quizzes/semana-01.json" },
+  { id: 2, week: 2, name: "Quiz Semana 2", file: "quizzes/semana-02.json" },
 ];
 
 const GRAMMAR_TOPICS = [
@@ -84,6 +86,15 @@ const GRAMMAR_TOPICS = [
   { id: 8, title: "Nominativo + Acusativo", file: "gramatica/08-nominativo-acusativo.md", emoji: "🎯" },
   { id: 9, title: "Genitivo", file: "gramatica/09-genitivo.md", emoji: "🔗" },
   { id: 10, title: "Dativo", file: "gramatica/10-dativo.md", emoji: "🎁" },
+  { id: 11, title: "Locativo", file: "gramatica/11-locativo.md", emoji: "📍" },
+  { id: 12, title: "Instrumental + preposición ar", file: "gramatica/12-instrumental-y-ar.md", emoji: "🤝" },
+  { id: 13, title: "Adjetivos: concordancia", file: "gramatica/13-adjetivos-concordancia.md", emoji: "🎨" },
+  { id: 15, title: "Pasado grupos 2 y 3", file: "gramatica/15-pasado-grupos-2-3.md", emoji: "⏪" },
+  { id: 16, title: "Pasado grupo 1 (irregulares)", file: "gramatica/16-pasado-grupo-1.md", emoji: "🌀" },
+  { id: 17, title: "Negación y preguntas", file: "gramatica/17-negacion-y-preguntas.md", emoji: "❓" },
+  { id: 18, title: "Posesivos y demostrativos", file: "gramatica/18-posesivos-demostrativos.md", emoji: "👉" },
+  { id: 19, title: "Preposiciones + caso", file: "gramatica/19-preposiciones-y-caso.md", emoji: "🗺️" },
+  { id: 20, title: "Verbos reflexivos -ties", file: "gramatica/20-verbos-reflexivos-ties.md", emoji: "🔄" },
 ];
 
 // Conversation topics
