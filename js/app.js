@@ -193,15 +193,76 @@ function renderProfilePill() {
   document.getElementById('profile-name').textContent = active;
 }
 
-function speak(text, lang = 'lv-LV') {
+// ============================================================
+// TEXT-TO-SPEECH (Latvian voice cascade)
+// ============================================================
+//   1) Installed Latvian voice (offline, best quality)
+//      — iOS "Daina", macOS "Tālis", Windows with LV pack
+//   2) Google Translate TTS (online, good Latvian voice)
+//   3) Default voice with lv-LV hint (fallback, often wrong)
+
+let _lvVoice = null;
+let _ttsAudio = null;
+let _ttsBusy = false;
+
+function _refreshVoices() {
   if (!('speechSynthesis' in window)) return;
+  const voices = speechSynthesis.getVoices();
+  _lvVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('lv')) || null;
+}
+_refreshVoices();
+if ('speechSynthesis' in window) {
+  speechSynthesis.addEventListener('voiceschanged', _refreshVoices);
+}
+
+function _stopAllAudio() {
+  if (_ttsAudio) { try { _ttsAudio.pause(); } catch (e) {} _ttsAudio = null; }
+  if ('speechSynthesis' in window) {
+    try { speechSynthesis.cancel(); } catch (e) {}
+  }
+}
+
+async function speak(text, lang = 'lv-LV') {
+  if (!text || _ttsBusy) return;
+  _ttsBusy = true;
+  _stopAllAudio();
   try {
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = lang;
-    u.rate = 0.85;
-    speechSynthesis.cancel();
-    speechSynthesis.speak(u);
-  } catch (e) {}
+    // 1) Installed Latvian voice → best, offline
+    if (_lvVoice && 'speechSynthesis' in window) {
+      const u = new SpeechSynthesisUtterance(text);
+      u.voice = _lvVoice;
+      u.lang = 'lv-LV';
+      u.rate = 0.85;
+      speechSynthesis.speak(u);
+      return;
+    }
+    // 2) Google Translate TTS (Latvian, online)
+    try {
+      const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=lv&client=tw-ob`;
+      _ttsAudio = new Audio(url);
+      _ttsAudio.preload = 'auto';
+      await _ttsAudio.play();
+      return;
+    } catch (e) {
+      // network blocked, CORS, etc. — fall through
+    }
+    // 3) Fallback: default voice with lang hint
+    if ('speechSynthesis' in window) {
+      try {
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'lv-LV';
+        u.rate = 0.85;
+        speechSynthesis.speak(u);
+      } catch (e) {}
+    }
+  } finally {
+    setTimeout(() => { _ttsBusy = false; }, 200);
+  }
+}
+
+function ttsSourceLabel() {
+  if (_lvVoice) return `🟢 Voz local: ${_lvVoice.name}`;
+  return '🌐 Voz online (Google Translate)';
 }
 
 function el(html) {
@@ -1068,10 +1129,21 @@ function renderProgress() {
         <a href="#/exam" class="card-action block">🎯 Estructura del examen A2</a>
         <a href="#/downloads" class="card-action block">⬇ Descargar lecciones y flashcards</a>
         <a href="#/profiles" class="card-action block">👥 Perfiles (cambiar / crear / borrar)</a>
-        <button id="reset-btn" class="card-action w-full text-left text-red-300">⚠️ Reiniciar todo mi progreso</button>
+        <button id="tts-test-btn" class="card-action w-full text-left">
+          🔊 Probar pronunciación letona
+          <div class="text-xs text-slate-400 mt-1" id="tts-source-info">${escapeHtml(ttsSourceLabel())}</div>
+        </button>
+        <button id="reset-btn" class="card-action w-full text-left text-red-300">⚠️ Reiniciar el progreso de este perfil</button>
       </div>
     </div>
   `;
+
+  document.getElementById('tts-test-btn').addEventListener('click', async () => {
+    const info = document.getElementById('tts-source-info');
+    info.textContent = '⏳ Reproduciendo...';
+    await speak('Sveiki! Mani sauc Latvisky. Es mācu latviešu valodu.');
+    setTimeout(() => { info.textContent = ttsSourceLabel(); }, 500);
+  });
 
   document.getElementById('reset-btn').addEventListener('click', () => {
     const active = getActiveProfile();
