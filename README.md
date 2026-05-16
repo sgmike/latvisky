@@ -2,66 +2,111 @@
 
 Sistema personalizado para alcanzar el nivel A2 oficial (Valsts valodas prasmes pārbaude) en 40 días, con el objetivo de obtener la **residencia permanente en Letonia**.
 
-## Cómo funciona
+Funciona en dos modos:
 
-Cada día abres este repo y pides la lección del día. El asistente:
+1. **Web App / PWA** — Interfaz gráfica accesible desde móvil/computadora, instalable en home screen.
+2. **Chat con Claude** — Lecciones personalizadas, conversación en letón, corrección de errores.
 
-1. Te da la lección del día (30 min de gramática + vocab + ejercicios).
-2. Te recuerda repasar las flashcards de la semana (10 min).
-3. Activa **modo conversación real** en letón, corrigiendo errores en vivo (15-20 min).
-4. Al final de cada semana hay un **quiz de 10 preguntas** sobre lo estudiado.
+---
 
-Tiempo total diario objetivo: **45-60 min**.
+## 🚀 Cómo publicar la web app (GitHub Pages — gratis)
 
-## Estructura del repo
+Una vez que merges esta rama a `main`:
+
+1. En GitHub → repositorio `latvisky` → **Settings** → **Pages**.
+2. **Build and deployment** → Source: **Deploy from a branch**.
+3. Branch: `main`, folder: `/ (root)`. Save.
+4. Espera 1–2 min. Verás tu URL: `https://sgmike.github.io/latvisky/`.
+5. Abre esa URL en tu celular. En el navegador → "Añadir a pantalla de inicio". Listo, app instalada.
+
+> Mientras pruebas sin mergear: en Pages también puedes elegir esta rama (`claude/learn-lithuanian-F0Ect`) como source.
+
+### Probarlo localmente sin desplegar
+
+```bash
+cd latvisky
+python3 -m http.server 8000
+# abre http://localhost:8000 en el navegador
+```
+
+---
+
+## 📱 Qué incluye la web app
+
+- **Inicio**: tarjeta grande con la lección de hoy, racha, progreso global.
+- **Días (Calendario)**: los 40 días en una cuadrícula, color-coded por semana. Toca un día → su lección.
+- **Cards (Flashcards)**: estudio interactivo con flip, audio TTS letón (🔊), seguimiento de qué dominas.
+- **Quiz**: 10 preguntas por semana, corrección automática inmediata, explicaciones por pregunta.
+- **Yo (Progreso)**: estadísticas, calendario tipo "heatmap", historial de quizzes, herramientas.
+
+Todo se guarda en **localStorage** del navegador → tu progreso persiste entre sesiones. No hay servidor, no hay cuentas, no hay rastreo.
+
+---
+
+## 🧑‍🏫 Cómo seguir el curso día a día
+
+### En el chat con Claude
+
+Cada día abres el chat y pides:
+
+- **"Dame la lección del día N"** → genero `lecciones/dia-N.md`, aparece automáticamente en la web app.
+- **"Modo conversación día N"** → te respondo SOLO en letón, corrijo al final.
+- **"Hazme el quiz semanal N"** → genero `quizzes/semana-N.json`, juégalo en la web app.
+- **"Genera flashcards de la semana N"** → CSV en `flashcards/semana-N.csv`.
+- **"Corrígeme este texto: [...]"** → corrección detallada.
+- **"Explícame [tema] con ejercicios"** → mini-clase enfocada.
+
+### En la web app
+
+- Abre tu URL desde el celular cada mañana.
+- Pulsa la tarjeta roja "Día N" en el inicio → empieza la lección.
+- Después de leer la lección, baja al fondo y pulsa "Marcar como completado".
+- Pulsa "Cards" → estudia las flashcards de la semana actual.
+- Si es día de quiz, pulsa "Quiz" → 10 preguntas con corrección automática.
+
+---
+
+## 📁 Estructura del repo
 
 ```
 latvisky/
-├── README.md                    ← Este archivo
+├── index.html              ← Web App (single page)
+├── manifest.json           ← PWA manifest
+├── sw.js                   ← Service worker (offline)
+├── .nojekyll               ← GH Pages: servir tal cual
+├── css/style.css           ← Estilos custom
+├── js/
+│   ├── app.js              ← Lógica de la app
+│   └── data.js             ← Metadata del curriculum
+├── vendor/                 ← Tailwind + marked locales (offline)
+├── icons/                  ← Íconos PWA
 ├── plan/
-│   └── curriculum-40-dias.md    ← Plan completo día por día
+│   └── curriculum-40-dias.md
 ├── examen/
-│   └── estructura-A2.md         ← Cómo es el examen oficial
-├── gramatica/                   ← Reglas + errores comunes + ejercicios
-│   ├── 01-alfabeto-pronunciacion.md
-│   ├── 02-pronombres-y-but.md
-│   ├── 03-sustantivos-genero.md
-│   └── ...
-├── lecciones/                   ← Una lección por día
-│   ├── dia-01.md
-│   ├── dia-02.md
-│   └── ...
-├── flashcards/                  ← CSV importable a Anki / Quizlet
-│   ├── semana-01.csv
-│   └── ...
-├── quizzes/                     ← Quiz semanal + respuestas
-│   ├── semana-01.md
-│   ├── semana-01-respuestas.md
-│   └── ...
-├── conversacion/                ← Modo conversación real
+│   └── estructura-A2.md
+├── gramatica/              ← Reglas, ejercicios, errores comunes
+├── lecciones/              ← Una por día (markdown)
+├── flashcards/             ← CSV por semana, importable a Anki
+├── quizzes/                ← JSON interactivos + MD legibles
+├── conversacion/
 │   └── instrucciones.md
-└── progreso.md                  ← Tracker personal
+├── progreso.md             ← Tracker (también dentro de la app)
+└── README.md
 ```
 
-## Cómo invocar al asistente cada día
+---
 
-Ejemplos de mensajes:
+## 🎯 Sobre el examen A2 oficial (resumen)
 
-- **"Dame la lección del día N"** → te da `lecciones/dia-N.md` o la crea.
-- **"Modo conversación: hablemos de [tema] en letón"** → activa rol de hablante nativo, corrige errores.
-- **"Explícame [tema gramatical] con ejercicios"** → mini-clase enfocada.
-- **"Hazme el quiz semanal de la semana N"** → 10 preguntas, respuestas después.
-- **"Repasemos las flashcards de la semana N"** → drill activo letón ↔ español.
-- **"Corrígeme este texto: [...]"** → corrección detallada con explicación.
+- 4 partes: **klausīšanās** (auditiva), **lasīšana** (lectura), **rakstīšana** (escritura), **runāšana** (oral).
+- **60% en CADA parte** para aprobar — no es promedio.
+- Para residencia permanente, además te examinan de **historia de Letonia** y el **himno nacional**.
 
-## Reglas del sistema
+Ver detalle completo en `examen/estructura-A2.md` o desde la web app → Inicio → "Examen A2 oficial".
 
-1. **Las explicaciones en español, los ejemplos en letón** (con traducción).
-2. **Modo conversación = solo letón**, con correcciones en español al final.
-3. Cada error que cometas se anota en `progreso.md` para repasos dirigidos.
-4. Los simulacros completos del examen llegan en las semanas 5 y 6.
+---
 
-## Importar las flashcards
+## 🤝 Importar flashcards a Anki (opcional)
 
 Los CSV están en formato Anki-friendly:
 
@@ -69,4 +114,16 @@ Los CSV están en formato Anki-friendly:
 letón;español;ejemplo_letón;ejemplo_español
 ```
 
-En Anki: `Archivo → Importar`, elegir `;` como separador, mapear campos.
+En Anki: `Archivo → Importar`, separador `;`, codificación UTF-8.
+
+---
+
+## 📚 Stack técnico (para curiosos)
+
+- HTML + Tailwind CSS (Play CDN bundleado localmente) + marked.js (markdown → HTML)
+- Vanilla JS, sin frameworks, sin build step
+- PWA: manifest + service worker (offline-first después de la primera carga)
+- TTS letón vía Web Speech API (calidad depende del SO/navegador)
+- Persistencia: localStorage del navegador
+
+**Veiksmi!** (Suerte 🍀)

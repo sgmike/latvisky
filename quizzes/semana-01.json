@@ -1,0 +1,89 @@
+{
+  "title": "Quiz Semana 1 — Fundamentos",
+  "description": "10 preguntas sobre pronombres, verbo būt, los 3 grupos verbales y vocabulario básico.",
+  "weekRef": 1,
+  "questions": [
+    {
+      "id": 1,
+      "type": "multiple_choice",
+      "context": "Pronunciación",
+      "question": "¿Cuál palabra está acentuada correctamente?",
+      "options": ["pal-DIES", "PAL-dies", "pa-LI-des"],
+      "answer": 1,
+      "explanation": "El acento en letón SIEMPRE cae en la primera sílaba, sin importar dónde estén las vocales largas."
+    },
+    {
+      "id": 2,
+      "type": "fill_blank",
+      "context": "Verbo būt",
+      "question": "Completa: 'Vai jūs ___ no Latvijas?'",
+      "answer": ["esat"],
+      "explanation": "Jūs (vosotros/usted) → esat. Recuerda que jūs vale para plural y para formal singular."
+    },
+    {
+      "id": 3,
+      "type": "translate",
+      "context": "Construcción 'tener'",
+      "question": "Traduce al letón: 'No tengo dinero.' (dinero = nauda, genitivo: naudas)",
+      "answer": ["Man nav naudas", "Man nav naudas."],
+      "explanation": "Tras NAV el objeto va en genitivo: naudas. Y el sujeto va en dativo: man."
+    },
+    {
+      "id": 4,
+      "type": "fill_blank",
+      "context": "Negación",
+      "question": "¿Cuál es la forma negativa de 'ir' (3ª persona singular/plural)?",
+      "answer": ["nav"],
+      "explanation": "Excepción: 'ir' se niega con NAV (no neir). Las otras formas sí toman ne-: neesmu, neesi, neesam, neesat."
+    },
+    {
+      "id": 5,
+      "type": "fill_blank",
+      "context": "Verbos grupo 2",
+      "question": "Completa: 'Es ___ latviski.' (verbo runāt = hablar, yo)",
+      "answer": ["runāju"],
+      "explanation": "Verbos del grupo 2 en 1ª singular: stem + ju → runā + ju = runāju."
+    },
+    {
+      "id": 6,
+      "type": "fill_blank",
+      "context": "Verbos grupo 3",
+      "question": "Completa: 'Viņi ___ grāmatu.' (verbo lasīt = leer, ellos)",
+      "answer": ["lasa"],
+      "explanation": "Grupo 3, 3ª persona (singular y plural coinciden): lasa."
+    },
+    {
+      "id": 7,
+      "type": "fill_blank",
+      "context": "Verbos grupo 1",
+      "question": "Completa: 'Es ___ uz darbu.' (verbo iet = ir, yo)",
+      "answer": ["eju"],
+      "explanation": "Iet es irregular: el stem cambia a ej- en presente → es eju, tu ej, viņš iet, mēs ejam, jūs ejat, viņi iet."
+    },
+    {
+      "id": 8,
+      "type": "multiple_choice",
+      "context": "Género de sustantivos",
+      "question": "¿Cuál de estas palabras es MASCULINA?",
+      "options": ["māte (madre)", "skola (escuela)", "brālis (hermano)", "upe (río)"],
+      "answer": 2,
+      "explanation": "Brālis termina en -is → 2ª declinación masculina. Las otras terminan en -e/-a → declinaciones femeninas."
+    },
+    {
+      "id": 9,
+      "type": "translate",
+      "context": "La hora",
+      "question": "Traduce: 'Son las cinco de la tarde.'",
+      "answer": ["Pulkstenis ir pieci pēcpusdienā", "Tagad ir pieci pēcpusdienā", "Pulkstenis ir pieci pēcpusdienā."],
+      "explanation": "Pulkstenis ir [número] [parte del día]. 'De la tarde' = pēcpusdienā (locativo)."
+    },
+    {
+      "id": 10,
+      "type": "translate",
+      "context": "Presentación",
+      "question": "Traduce: 'Me llamo Pedro.'",
+      "answer": ["Mani sauc Pedro", "Mani sauc Pedro."],
+      "explanation": "La construcción más natural es 'Mani sauc [nombre]' (literal: 'a mí me llaman X'). También aceptable pero menos común: 'Es esmu Pedro'."
+    }
+  ]
+}
