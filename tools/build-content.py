@@ -20,6 +20,7 @@ INCLUDE_PATTERNS = [
     "examen/*.md",
     "conversacion/*.md",
     "plan/*.md",
+    "audio/manifest.json",
 ]
 
 bundle = {}

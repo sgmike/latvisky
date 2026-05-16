@@ -1,7 +1,7 @@
 // Service Worker — Latvisky
 // Network-first with cache fallback. Updates content when online.
 
-const CACHE = 'latvisky-v7';
+const CACHE = 'latvisky-v8';
 const SHELL = [
   './',
   './index.html',
@@ -27,6 +27,9 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET') return;
+  // Bypass cross-origin requests entirely (prevents breaking external audio/APIs).
+  const url = new URL(req.url);
+  if (url.origin !== self.location.origin) return;
   e.respondWith(
     fetch(req).then(res => {
       const copy = res.clone();

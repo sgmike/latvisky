@@ -198,12 +198,14 @@ function renderProfilePill() {
 // ============================================================
 //   1) Installed Latvian voice (offline, best quality)
 //      — iOS "Daina", macOS "Tālis", Windows with LV pack
-//   2) Google Translate TTS (online, good Latvian voice)
-//   3) Default voice with lv-LV hint (fallback, often wrong)
+//   2) Pre-generated MP3 (gTTS Latvian, served from /audio/lv/)
+//      — Works for every user, cached offline after first play.
+//   3) Default voice with lv-LV hint (last-resort fallback)
 
 let _lvVoice = null;
 let _ttsAudio = null;
 let _ttsBusy = false;
+let _audioManifest = null;
 
 function _refreshVoices() {
   if (!('speechSynthesis' in window)) return;
@@ -222,12 +224,40 @@ function _stopAllAudio() {
   }
 }
 
+function getAudioManifest() {
+  if (_audioManifest !== null) return _audioManifest;
+  try {
+    if (typeof LATVISKY_CONTENT !== 'undefined' && LATVISKY_CONTENT['audio/manifest.json']) {
+      _audioManifest = JSON.parse(LATVISKY_CONTENT['audio/manifest.json']);
+      return _audioManifest;
+    }
+  } catch (e) {}
+  _audioManifest = {};
+  return _audioManifest;
+}
+
+async function audioHashId(text) {
+  if (!crypto || !crypto.subtle) return null;
+  const buf = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf))
+    .map(b => b.toString(16).padStart(2, '0')).join('')
+    .substring(0, 16);
+}
+
+function playLocalAudio(hash) {
+  return new Promise((resolve, reject) => {
+    _ttsAudio = new Audio(`audio/lv/${hash}.mp3`);
+    _ttsAudio.addEventListener('error', () => reject(new Error('audio load failed')), { once: true });
+    _ttsAudio.play().then(resolve, reject);
+  });
+}
+
 async function speak(text, lang = 'lv-LV') {
   if (!text || _ttsBusy) return;
   _ttsBusy = true;
   _stopAllAudio();
   try {
-    // 1) Installed Latvian voice → best, offline
+    // 1) Installed Latvian voice → great quality, offline
     if (_lvVoice && 'speechSynthesis' in window) {
       const u = new SpeechSynthesisUtterance(text);
       u.voice = _lvVoice;
@@ -236,15 +266,15 @@ async function speak(text, lang = 'lv-LV') {
       speechSynthesis.speak(u);
       return;
     }
-    // 2) Google Translate TTS (Latvian, online)
+    // 2) Pre-generated MP3 from our /audio/lv/ folder
     try {
-      const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=lv&client=tw-ob`;
-      _ttsAudio = new Audio(url);
-      _ttsAudio.preload = 'auto';
-      await _ttsAudio.play();
-      return;
+      const hid = await audioHashId(text);
+      if (hid && getAudioManifest()[hid]) {
+        await playLocalAudio(hid);
+        return;
+      }
     } catch (e) {
-      // network blocked, CORS, etc. — fall through
+      // mp3 missing or playback failed — fall through
     }
     // 3) Fallback: default voice with lang hint
     if ('speechSynthesis' in window) {
@@ -261,8 +291,10 @@ async function speak(text, lang = 'lv-LV') {
 }
 
 function ttsSourceLabel() {
-  if (_lvVoice) return `🟢 Voz local: ${_lvVoice.name}`;
-  return '🌐 Voz online (Google Translate)';
+  if (_lvVoice) return `🟢 Voz local instalada: ${_lvVoice.name}`;
+  const manifestSize = Object.keys(getAudioManifest()).length;
+  if (manifestSize > 0) return `🎵 Audio pre-grabado (${manifestSize} archivos disponibles)`;
+  return '⚠️ Sin audio configurado — usará voz por defecto';
 }
 
 function el(html) {
@@ -745,7 +777,10 @@ function renderCard() {
             <div class="text-xs uppercase tracking-widest text-white/70 mb-1">Español</div>
             <div class="text-xl font-bold mb-3">${escapeHtml(card.español)}</div>
             <div class="border-t border-white/20 pt-3 w-full">
-              <div class="text-xs text-white/70 mb-1">Ejemplo</div>
+              <div class="flex items-center justify-between mb-1">
+                <div class="text-xs text-white/70">Ejemplo</div>
+                ${card.ejemplo_letón ? `<button id="speak-example-btn" class="text-xs bg-white/15 hover:bg-white/25 px-2 py-0.5 rounded-full">🔊</button>` : ''}
+              </div>
               <div class="text-sm italic mb-1" lang="lv">${escapeHtml(card.ejemplo_letón || '')}</div>
               <div class="text-xs text-white/80">${escapeHtml(card.ejemplo_español || '')}</div>
             </div>
@@ -773,6 +808,10 @@ function renderCard() {
   document.getElementById('speak-btn')?.addEventListener('click', (e) => {
     e.stopPropagation();
     speak(card.letón);
+  });
+  document.getElementById('speak-example-btn')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (card.ejemplo_letón) speak(card.ejemplo_letón);
   });
   document.getElementById('btn-wrong').addEventListener('click', () => answerCard(false));
   document.getElementById('btn-right').addEventListener('click', () => answerCard(true));
