@@ -1,0 +1,89 @@
+{
+  "title": "Quiz Semana 3 — Pasado + reflexivos + preposiciones",
+  "description": "10 preguntas sobre el pasado de los 3 grupos, negación, preguntas, posesivos, preposiciones y reflexivos.",
+  "weekRef": 3,
+  "questions": [
+    {
+      "id": 1,
+      "type": "fill_blank",
+      "context": "Pasado grupo 2",
+      "question": "Completa: 'Vakar es ___ astoņas stundas.' (trabajar = strādāt)",
+      "answer": ["strādāju"],
+      "explanation": "Pasado 1sg de strādāt = strādāju (idéntico al presente). El contexto 'vakar' (ayer) marca pasado."
+    },
+    {
+      "id": 2,
+      "type": "fill_blank",
+      "context": "Pasado grupo 3",
+      "question": "Completa: 'Es vakar ___ jaunu grāmatu.' (leer = lasīt)",
+      "answer": ["lasīju"],
+      "explanation": "Pasado de grupo 3: stem del infinitivo (sin -t) + -ja + terminación. lasī(t) → lasīju."
+    },
+    {
+      "id": 3,
+      "type": "fill_blank",
+      "context": "Pasado grupo 1 (irregular)",
+      "question": "Completa: 'Vakar es ___ Rīgā.' (estar/ser = būt)",
+      "answer": ["biju"],
+      "explanation": "Pasado de būt: biju, biji, bija, bijām, bijāt, bija. Irregularidad total."
+    },
+    {
+      "id": 4,
+      "type": "translate",
+      "context": "Pasado grupo 1",
+      "question": "Traduce: 'Ayer fui al parque.' (parque = parks)",
+      "answer": ["Vakar es gāju uz parku", "Es vakar gāju uz parku", "Vakar es gāju uz parku.", "Es vakar gāju uz parku."],
+      "explanation": "iet → pasado: gāju. Dirección: uz + acc → uz parku."
+    },
+    {
+      "id": 5,
+      "type": "multiple_choice",
+      "context": "Posesivo reflexivo savs",
+      "question": "Elige el posesivo correcto: 'Viņa mīl ___ māti' (ella ama a SU PROPIA madre)",
+      "options": ["mana", "tava", "viņas", "savu"],
+      "answer": 3,
+      "explanation": "Cuando el poseedor = sujeto de la frase, usa SAVS. Aquí 'viņa' (ella) es sujeto, y posee a 'māti' → savu (acc fem)."
+    },
+    {
+      "id": 6,
+      "type": "fill_blank",
+      "context": "Negación + caso tras nav",
+      "question": "Completa: 'Man nav ___' (tiempo = laiks, masc)",
+      "answer": ["laika"],
+      "explanation": "Tras NAV, el objeto va en genitivo. laiks (gen) → laika."
+    },
+    {
+      "id": 7,
+      "type": "multiple_choice",
+      "context": "Preposición + caso",
+      "question": "¿Cómo se dice 'al lado del banco'? (blakus + ?)",
+      "options": ["blakus banka", "blakus banku", "blakus bankas", "blakus bankai"],
+      "answer": 3,
+      "explanation": "BLAKUS rige dativo. banka → bankai (dat fem)."
+    },
+    {
+      "id": 8,
+      "type": "fill_blank",
+      "context": "Verbo reflexivo presente",
+      "question": "Completa: 'Es ___ latviešu valodu.' (estudiar = mācīties)",
+      "answer": ["mācos"],
+      "explanation": "mācīties (refl.) 1sg pres = mācos. No confundir con mācu (= 'enseño', de mācīt)."
+    },
+    {
+      "id": 9,
+      "type": "fill_blank",
+      "context": "Pregunta interrogativa",
+      "question": "Completa: '___ tu mācies latviešu valodu?' (¿por qué?)",
+      "answer": ["Kāpēc", "kāpēc"],
+      "explanation": "kāpēc = ¿por qué? Otras opciones: kā (cómo), kas (qué/quién), kur (dónde)."
+    },
+    {
+      "id": 10,
+      "type": "translate",
+      "context": "Frase compleja con pasado y reflexivo",
+      "question": "Traduce: 'Ayer me desperté a las siete.'",
+      "answer": ["Vakar es pamodos septiņos", "Es vakar pamodos septiņos", "Vakar es pamodos septiņos.", "Es vakar pamodos septiņos."],
+      "explanation": "pamosties (despertarse, refl.) pasado 1sg = pamodos. Hora: septiņos (dat pl)."
+    }
+  ]
+}

@@ -68,11 +68,14 @@ const DECKS = [
   { id: 1, week: 1, name: "Semana 1 — Fundamentos", file: "flashcards/semana-01.csv", topic: "Saludos, pronombres, būt, familia" },
   { id: 2, week: 2, name: "Semana 2 — Casa, cuerpo, gustos", file: "flashcards/semana-02.csv", topic: "Vivienda, muebles, cuerpo humano, verbos de gusto" },
   { id: 3, week: 3, name: "Semana 3 — Pasado, compras, salud", file: "flashcards/semana-03.csv", topic: "Pasado, posesivos, compras, direcciones, salud" },
+  { id: 4, week: 4, name: "Semana 4 — Futuro, modales, formulario", file: "flashcards/semana-04.csv", topic: "Futuro, jā-, comparativos, clima, restaurante, anketa" },
 ];
 
 const QUIZZES = [
   { id: 1, week: 1, name: "Quiz Semana 1", file: "quizzes/semana-01.json" },
   { id: 2, week: 2, name: "Quiz Semana 2", file: "quizzes/semana-02.json" },
+  { id: 3, week: 3, name: "Quiz Semana 3", file: "quizzes/semana-03.json" },
+  { id: 4, week: 4, name: "Quiz Semana 4", file: "quizzes/semana-04.json" },
 ];
 
 const GRAMMAR_TOPICS = [
@@ -95,6 +98,12 @@ const GRAMMAR_TOPICS = [
   { id: 18, title: "Posesivos y demostrativos", file: "gramatica/18-posesivos-demostrativos.md", emoji: "👉" },
   { id: 19, title: "Preposiciones + caso", file: "gramatica/19-preposiciones-y-caso.md", emoji: "🗺️" },
   { id: 20, title: "Verbos reflexivos -ties", file: "gramatica/20-verbos-reflexivos-ties.md", emoji: "🔄" },
+  { id: 22, title: "Futuro (nākotne)", file: "gramatica/22-futuro-nakotne.md", emoji: "⏩" },
+  { id: 23, title: "Modales + construcción jā-", file: "gramatica/23-verbos-modales.md", emoji: "💪" },
+  { id: 24, title: "Comparativos y superlativos", file: "gramatica/24-comparativos-superlativos.md", emoji: "📊" },
+  { id: 25, title: "Conectores y conjunciones", file: "gramatica/25-conectores-conjunciones.md", emoji: "🔌" },
+  { id: 26, title: "Imperativo + cortesía", file: "gramatica/26-imperativo.md", emoji: "📢" },
+  { id: 27, title: "Escritura: formularios A2", file: "gramatica/27-escritura-formularios.md", emoji: "📝" },
 ];
 
 // Conversation topics

@@ -1,0 +1,91 @@
+{
+  "title": "Quiz Semana 4 — Futuro, modales, comparativos, conectores",
+  "description": "10 preguntas sobre futuro, jā-, varēt/drīkst/gribēt, comparativos, conectores e imperativo.",
+  "weekRef": 4,
+  "questions": [
+    {
+      "id": 1,
+      "type": "fill_blank",
+      "context": "Futuro grupo 2",
+      "question": "Completa: 'Rīt es ___ astoņas stundas.' (trabajar = strādāt, futuro 1sg)",
+      "answer": ["strādāšu"],
+      "explanation": "Futuro grupo 2: stem + šu. strādā + šu = strādāšu."
+    },
+    {
+      "id": 2,
+      "type": "fill_blank",
+      "context": "Futuro grupo 1 irregular",
+      "question": "Completa: 'Rīt es ___ uz Rīgu.' (ir = iet, futuro 1sg)",
+      "answer": ["iešu"],
+      "explanation": "Futuro irregular: iet → iešu, iesi, ies, iesim, iesiet, ies."
+    },
+    {
+      "id": 3,
+      "type": "multiple_choice",
+      "context": "Construcción jā- + objeto",
+      "question": "¿Cómo se dice 'Tengo que comprar pan'? (maize = pan, fem)",
+      "options": ["Es jāpērk maizi", "Man jāpērk maizi", "Man jāpērk maize", "Man jāpērku maize"],
+      "answer": 2,
+      "explanation": "Estructura jā-: [dat] + jā[verbo 3a] + [NOM objeto]. Persona en dativo (man), objeto en NOMINATIVO (maize, NO maizi). El verbo nunca se conjuga (siempre jāpērk)."
+    },
+    {
+      "id": 4,
+      "type": "multiple_choice",
+      "context": "Verbo modal correcto",
+      "question": "¿Qué modal para 'Aquí no se puede fumar (no está permitido)'? Šeit ___ smēķēt.",
+      "options": ["nevar", "nedrīkst", "negrib", "nemāk"],
+      "answer": 1,
+      "explanation": "drīkstēt = estar permitido. Para prohibición: nedrīkst. nevar sería 'no es capaz', diferente sentido."
+    },
+    {
+      "id": 5,
+      "type": "fill_blank",
+      "context": "Comparativo",
+      "question": "Completa: 'Mans brālis ir ___ par mani.' (más alto, masc)",
+      "answer": ["garāks"],
+      "explanation": "Comparativo de garš (alto) = garāks (m) / garāka (f). 'Más X que Y' = X-āks par Y (acc)."
+    },
+    {
+      "id": 6,
+      "type": "fill_blank",
+      "context": "Superlativo",
+      "question": "Completa: 'Rīga ir Latvijas ___ pilsēta.' (la más grande, fem)",
+      "answer": ["vislielākā"],
+      "explanation": "Superlativo fem definido: vis- + comparativo + -ā. liels → vislielākā (la más grande)."
+    },
+    {
+      "id": 7,
+      "type": "multiple_choice",
+      "context": "Conector",
+      "question": "Une las frases: 'Es esmu noguris ___ daudz strādāju.'",
+      "options": ["un (y)", "bet (pero)", "jo (porque)", "ja (si)"],
+      "answer": 2,
+      "explanation": "jo = porque. La segunda frase explica la causa de la primera."
+    },
+    {
+      "id": 8,
+      "type": "fill_blank",
+      "context": "Imperativo",
+      "question": "Imperativo 2sg de 'lasīt' (¡lee!): ___",
+      "answer": ["lasi", "Lasi"],
+      "explanation": "Imperativo 2sg = 2ª persona presente. lasīt → tu lasi → ¡lasi!"
+    },
+    {
+      "id": 9,
+      "type": "translate",
+      "context": "Cortesía",
+      "question": "Traduce de manera cortés: '¿Podrías ayudarme?'",
+      "answer": ["Vai tu varētu man palīdzēt", "Vai tu varētu man palīdzēt?", "Vai jūs varētu man palīdzēt", "Vai jūs varētu man palīdzēt?"],
+      "explanation": "Forma cortés: Vai tu/jūs varētu + infinitivo. palīdzēt + dat (man)."
+    },
+    {
+      "id": 10,
+      "type": "multiple_choice",
+      "context": "Vocabulario formulario",
+      "question": "¿Qué significa 'Dzimšanas datums' en un formulario?",
+      "options": ["Lugar de nacimiento", "Fecha de nacimiento", "Nombre completo", "Estado civil"],
+      "answer": 1,
+      "explanation": "Dzimšanas = de nacimiento (gen de dzimšana). Datums = fecha. → 'Fecha de nacimiento'. Lugar de nacimiento = 'dzimšanas vieta'."
+    }
+  ]
+}
