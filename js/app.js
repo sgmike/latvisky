@@ -4,25 +4,88 @@
 const app = document.getElementById('app');
 
 // ============================================================
-// STATE & PERSISTENCE
+// PROFILES (multi-user support, local-only)
 // ============================================================
 
-const STORAGE_KEY = 'latvisky.state.v1';
+const PROFILES_KEY = 'latvisky.profiles';
+const ACTIVE_PROFILE_KEY = 'latvisky.activeProfile';
+const LEGACY_STATE_KEY = 'latvisky.state.v1';
+const STATE_PREFIX = 'latvisky.state.v1';
+
+function loadProfiles() {
+  try { return JSON.parse(localStorage.getItem(PROFILES_KEY) || '[]'); }
+  catch (e) { return []; }
+}
+function saveProfiles(profiles) { localStorage.setItem(PROFILES_KEY, JSON.stringify(profiles)); }
+function getActiveProfile() { return localStorage.getItem(ACTIVE_PROFILE_KEY) || null; }
+function setActiveProfile(name) {
+  if (name) localStorage.setItem(ACTIVE_PROFILE_KEY, name);
+  else localStorage.removeItem(ACTIVE_PROFILE_KEY);
+}
+function profileStateKey(name) { return `${STATE_PREFIX}:${name}`; }
+
+function sanitizeProfileName(s) {
+  return String(s || '').trim().slice(0, 24);
+}
+
+function createProfile(name) {
+  name = sanitizeProfileName(name);
+  if (!name) return { ok: false, reason: 'empty' };
+  const profiles = loadProfiles();
+  if (profiles.includes(name)) return { ok: false, reason: 'exists' };
+  profiles.push(name);
+  saveProfiles(profiles);
+  setActiveProfile(name);
+  const fresh = { ...defaultState, startDate: today() };
+  localStorage.setItem(profileStateKey(name), JSON.stringify(fresh));
+  return { ok: true };
+}
+
+function deleteProfile(name) {
+  const profiles = loadProfiles().filter(p => p !== name);
+  saveProfiles(profiles);
+  localStorage.removeItem(profileStateKey(name));
+  if (getActiveProfile() === name) setActiveProfile(profiles[0] || null);
+}
+
+function migrateLegacyState() {
+  const legacy = localStorage.getItem(LEGACY_STATE_KEY);
+  if (!legacy) return;
+  // Only migrate if it's a JSON object (not the new prefix-style keys)
+  let parsed;
+  try { parsed = JSON.parse(legacy); } catch (e) { return; }
+  if (typeof parsed !== 'object') return;
+
+  const profiles = loadProfiles();
+  if (profiles.length === 0) {
+    profiles.push('Yo');
+    saveProfiles(profiles);
+    setActiveProfile('Yo');
+    localStorage.setItem(profileStateKey('Yo'), legacy);
+  }
+  localStorage.removeItem(LEGACY_STATE_KEY);
+}
+
+// ============================================================
+// STATE & PERSISTENCE
+// ============================================================
 
 const defaultState = {
   startDate: null,
   currentDay: 1,
-  completedDays: [],          // [1, 2, ...]
-  cardStats: {},              // { 'sveiki': { seen: 3, known: 2 }, ... }
-  quizAttempts: {},           // { '1': [{date, score, total, answers: [...]}] }
+  completedDays: [],
+  cardStats: {},
+  quizAttempts: {},
   lastStudied: null,
   streak: 0,
   lastStudyDate: null
 };
 
 function loadState() {
+  const active = getActiveProfile();
+  if (!active) return null;
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(profileStateKey(active));
     if (!raw) return { ...defaultState, startDate: today() };
     const s = JSON.parse(raw);
     return { ...defaultState, ...s };
@@ -30,11 +93,15 @@ function loadState() {
     return { ...defaultState, startDate: today() };
   }
 }
-function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+function saveState() {
+  const active = getActiveProfile();
+  if (active && state) localStorage.setItem(profileStateKey(active), JSON.stringify(state));
+}
 function today() { return new Date().toISOString().slice(0, 10); }
 
+migrateLegacyState();
 let state = loadState();
-if (!state.startDate) { state.startDate = today(); saveState(); }
+if (state && !state.startDate) { state.startDate = today(); saveState(); }
 
 // ============================================================
 // HELPERS
@@ -43,15 +110,33 @@ if (!state.startDate) { state.startDate = today(); saveState(); }
 function fmtPercent(n) { return Math.round(n) + '%'; }
 
 async function fetchText(path) {
+  // Prefer bundled content (offline / standalone)
+  if (typeof LATVISKY_CONTENT !== 'undefined' && LATVISKY_CONTENT[path] != null) {
+    return LATVISKY_CONTENT[path];
+  }
   const res = await fetch(path);
   if (!res.ok) throw new Error('No encontrado: ' + path);
   return await res.text();
 }
 
 async function fetchJSON(path) {
+  if (typeof LATVISKY_CONTENT !== 'undefined' && LATVISKY_CONTENT[path] != null) {
+    return JSON.parse(LATVISKY_CONTENT[path]);
+  }
   const res = await fetch(path);
   if (!res.ok) throw new Error('No encontrado: ' + path);
   return await res.json();
+}
+
+function downloadBlob(filename, content, mime = 'text/plain;charset=utf-8') {
+  const blob = new Blob([content], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 500);
 }
 
 function parseCSV(text) {
@@ -76,6 +161,7 @@ function shuffle(arr) {
 }
 
 function updateStreak() {
+  if (!state) return;
   const t = today();
   if (state.lastStudyDate === t) return;
   const yest = new Date();
@@ -89,10 +175,22 @@ function updateStreak() {
 }
 
 function renderStreakPill() {
+  if (!state) return;
   const el = document.getElementById('streak-count');
   if (el) el.textContent = state.streak || 0;
   const pill = document.getElementById('streak-pill');
   if (pill) pill.classList.toggle('hidden', !(state.streak > 0));
+}
+
+function renderProfilePill() {
+  const pill = document.getElementById('profile-pill');
+  if (!pill) return;
+  const active = getActiveProfile();
+  if (!active) { pill.classList.add('hidden'); return; }
+  pill.classList.remove('hidden');
+  pill.classList.add('flex');
+  document.getElementById('profile-avatar').textContent = active[0].toUpperCase();
+  document.getElementById('profile-name').textContent = active;
 }
 
 function speak(text, lang = 'lv-LV') {
@@ -138,10 +236,28 @@ const routes = [
   { match: /^\/grammar$/,                 handler: renderGrammarList,    tab: 'days' },
   { match: /^\/grammar\/(\d+)$/,          handler: renderGrammarTopic,   tab: 'days' },
   { match: /^\/exam$/,                    handler: renderExamInfo,       tab: 'me' },
-  { match: /^\/conversation$/,            handler: renderConversation,   tab: 'home' }
+  { match: /^\/conversation$/,            handler: renderConversation,   tab: 'home' },
+  { match: /^\/profiles$/,                handler: renderProfilesPage,   tab: 'me' },
+  { match: /^\/downloads$/,               handler: renderDownloadsPage,  tab: 'me' }
 ];
 
 function route() {
+  // Profile gate: require a profile before showing anything
+  const profiles = loadProfiles();
+  if (profiles.length === 0) {
+    setActiveTab(null);
+    renderFirstProfileSetup();
+    return;
+  }
+  if (!getActiveProfile()) {
+    setActiveProfile(profiles[0]);
+    state = loadState();
+  }
+  if (!state) {
+    state = loadState() || { ...defaultState, startDate: today() };
+  }
+  renderProfilePill();
+
   const hash = (location.hash || '#/').slice(1);
   for (const r of routes) {
     const m = hash.match(r.match);
@@ -157,7 +273,7 @@ function route() {
 }
 
 window.addEventListener('hashchange', route);
-window.addEventListener('DOMContentLoaded', () => { renderStreakPill(); route(); });
+window.addEventListener('DOMContentLoaded', () => { renderStreakPill(); renderProfilePill(); route(); });
 
 function renderError(e) {
   app.innerHTML = `<div class="text-center py-16">
@@ -390,6 +506,13 @@ async function renderDay(dayStr) {
       renderDay(dayStr);
     });
   }
+
+  const dlBtn = document.getElementById('day-download-btn');
+  if (dlBtn) {
+    dlBtn.addEventListener('click', () => {
+      downloadBlob(`dia-${String(dayNum).padStart(2,'0')}.md`, body, 'text/markdown;charset=utf-8');
+    });
+  }
 }
 
 function renderDayHeader(lesson) {
@@ -421,6 +544,9 @@ function renderDayNav(prev, next, current, isCompleted) {
           Día ${next || ''} →
         </a>
       </div>
+      <button id="day-download-btn" class="w-full bg-white/5 hover:bg-white/10 rounded-xl py-2.5 text-sm text-slate-300">
+        ⬇ Descargar esta lección (.md)
+      </button>
     </div>
   `;
 }
@@ -940,14 +1066,18 @@ function renderProgress() {
       <div class="space-y-2">
         <h2 class="text-sm uppercase tracking-wider text-slate-300 px-1">Herramientas</h2>
         <a href="#/exam" class="card-action block">🎯 Estructura del examen A2</a>
+        <a href="#/downloads" class="card-action block">⬇ Descargar lecciones y flashcards</a>
+        <a href="#/profiles" class="card-action block">👥 Perfiles (cambiar / crear / borrar)</a>
         <button id="reset-btn" class="card-action w-full text-left text-red-300">⚠️ Reiniciar todo mi progreso</button>
       </div>
     </div>
   `;
 
   document.getElementById('reset-btn').addEventListener('click', () => {
-    if (confirm('¿Seguro que quieres borrar TODO tu progreso? Esta acción no se puede deshacer.')) {
-      localStorage.removeItem(STORAGE_KEY);
+    const active = getActiveProfile();
+    if (!active) return;
+    if (confirm(`¿Seguro que quieres borrar el progreso del perfil "${active}"? Esta acción no se puede deshacer.`)) {
+      localStorage.removeItem(profileStateKey(active));
       state = loadState();
       route();
     }
@@ -1060,4 +1190,253 @@ async function renderConversation() {
         <article class="prose-lesson">${marked.parse(body)}</article>
       </div>`;
   } catch (e) { renderError(e); }
+}
+
+// ============================================================
+// PROFILE SETUP & MANAGEMENT
+// ============================================================
+
+function renderFirstProfileSetup() {
+  app.innerHTML = `
+    <div class="fade-in max-w-md mx-auto py-10 space-y-6">
+      <div class="text-center">
+        <div class="text-6xl mb-3">👋</div>
+        <h1 class="text-2xl font-bold mb-2">Sveiki! Bienvenido a Latvisky</h1>
+        <p class="text-sm text-slate-400">Crea tu perfil para empezar a rastrear tu progreso.</p>
+      </div>
+      <div class="space-y-3">
+        <input type="text" id="new-profile-name" placeholder="Tu nombre (ej. Pedro)"
+          class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-lvred"
+          maxlength="24" autocomplete="off" />
+        <button id="create-profile-btn" class="w-full bg-lvred py-3 rounded-xl font-semibold">
+          Crear mi perfil
+        </button>
+      </div>
+      <div class="bg-white/5 rounded-xl p-3 text-xs text-slate-400 space-y-1">
+        <p><strong class="text-slate-200">📱 Local:</strong> tu progreso se guarda solo en este navegador (no hay servidor ni cuenta).</p>
+        <p><strong class="text-slate-200">👥 Compartido:</strong> en el mismo dispositivo, varias personas pueden crear sus perfiles separados.</p>
+        <p><strong class="text-slate-200">🔒 Privado:</strong> nadie más ve tus datos.</p>
+      </div>
+    </div>`;
+  const input = document.getElementById('new-profile-name');
+  input.focus();
+  const submit = () => {
+    const name = input.value.trim();
+    if (!name) { input.focus(); return; }
+    const r = createProfile(name);
+    if (!r.ok) {
+      if (r.reason === 'exists') alert('Ese nombre ya existe');
+      else if (r.reason === 'empty') alert('Pon un nombre');
+      return;
+    }
+    state = loadState();
+    location.hash = '#/';
+    route();
+  };
+  document.getElementById('create-profile-btn').addEventListener('click', submit);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
+}
+
+function renderProfilesPage() {
+  const profiles = loadProfiles();
+  const active = getActiveProfile();
+
+  app.innerHTML = `
+    <div class="fade-in space-y-5">
+      <div>
+        <h1 class="text-2xl font-bold">Perfiles</h1>
+        <p class="text-sm text-slate-400 mt-1">Cada perfil tiene su propio progreso. Todos viven en este navegador.</p>
+      </div>
+
+      <div class="space-y-2">
+        ${profiles.map(p => `
+          <div class="card-action ${p === active ? 'border-lvred/60 bg-lvred/10' : ''}">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-full bg-gradient-to-br from-lvred to-lvred-dark flex items-center justify-center font-bold text-white text-lg">
+                ${escapeHtml(p[0].toUpperCase())}
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold truncate">${escapeHtml(p)}</div>
+                <div class="text-xs ${p === active ? 'text-lvred font-medium' : 'text-slate-500'}">
+                  ${p === active ? '● Activo' : 'Inactivo'}
+                </div>
+              </div>
+              <div class="flex gap-1.5">
+                ${p !== active ? `<button data-action="switch" data-name="${escapeHtml(p)}" class="text-xs bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg">Cambiar a</button>` : ''}
+                <button data-action="delete" data-name="${escapeHtml(p)}" class="text-xs bg-red-500/15 hover:bg-red-500/25 text-red-300 px-3 py-1.5 rounded-lg" title="Borrar perfil">✕</button>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="bg-white/5 rounded-xl p-4 space-y-3">
+        <div class="text-sm font-semibold">+ Crear nuevo perfil</div>
+        <div class="flex gap-2">
+          <input type="text" id="new-profile-input" placeholder="Nombre"
+            class="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-lvred"
+            maxlength="24" />
+          <button id="create-new-profile-btn" class="bg-lvred px-4 py-2 rounded-lg font-medium text-sm">
+            Crear
+          </button>
+        </div>
+      </div>
+
+      <div class="text-xs text-slate-500 space-y-1 px-1">
+        <p>💡 ¿Quieres compartir Latvisky? Simplemente comparte la URL. Cada persona que entre desde su dispositivo tendrá sus propios perfiles y progreso.</p>
+        <p>⚠️ Borrar un perfil elimina su progreso para siempre.</p>
+      </div>
+    </div>`;
+
+  app.querySelectorAll('[data-action="switch"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setActiveProfile(btn.dataset.name);
+      state = loadState();
+      renderProfilePill();
+      renderStreakPill();
+      location.hash = '#/';
+      route();
+    });
+  });
+  app.querySelectorAll('[data-action="delete"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const name = btn.dataset.name;
+      if (!confirm(`¿Borrar el perfil "${name}"? Su progreso se perderá para siempre.`)) return;
+      deleteProfile(name);
+      const remaining = loadProfiles();
+      if (remaining.length === 0) {
+        state = null;
+        location.hash = '#/';
+        route();
+      } else {
+        state = loadState();
+        renderProfilePill();
+        renderProfilesPage();
+      }
+    });
+  });
+  const input = document.getElementById('new-profile-input');
+  document.getElementById('create-new-profile-btn').addEventListener('click', () => {
+    const name = input.value.trim();
+    if (!name) return;
+    const r = createProfile(name);
+    if (!r.ok) {
+      if (r.reason === 'exists') alert('Ese nombre ya existe');
+      return;
+    }
+    state = loadState();
+    renderProfilePill();
+    location.hash = '#/';
+    route();
+  });
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('create-new-profile-btn').click();
+  });
+}
+
+// ============================================================
+// DOWNLOADS PAGE
+// ============================================================
+
+function renderDownloadsPage() {
+  const lessonItems = CURRICULUM.map(d => `
+    <button data-download="${d.file}" data-name="dia-${String(d.day).padStart(2,'0')}.md" class="card-action w-full text-left">
+      <div class="flex items-center gap-3">
+        <div class="text-xl">📄</div>
+        <div class="flex-1">
+          <div class="font-semibold text-sm">Día ${d.day} · ${mdToInline(d.title)}</div>
+          <div class="text-xs text-slate-400">${d.topic}</div>
+        </div>
+        <div class="text-slate-500">⬇</div>
+      </div>
+    </button>
+  `).join('');
+
+  const deckItems = DECKS.map(d => `
+    <button data-download="${d.file}" data-name="${d.file.split('/').pop()}" class="card-action w-full text-left">
+      <div class="flex items-center gap-3">
+        <div class="text-xl">🃏</div>
+        <div class="flex-1">
+          <div class="font-semibold text-sm">${escapeHtml(d.name)}</div>
+          <div class="text-xs text-slate-400">CSV listo para Anki / Quizlet</div>
+        </div>
+        <div class="text-slate-500">⬇</div>
+      </div>
+    </button>
+  `).join('');
+
+  const grammarItems = GRAMMAR_TOPICS.map(g => `
+    <button data-download="${g.file}" data-name="${g.file.split('/').pop()}" class="card-action w-full text-left">
+      <div class="flex items-center gap-3">
+        <div class="text-xl">${g.emoji}</div>
+        <div class="flex-1">
+          <div class="font-semibold text-sm">${escapeHtml(g.title)}</div>
+        </div>
+        <div class="text-slate-500">⬇</div>
+      </div>
+    </button>
+  `).join('');
+
+  app.innerHTML = `
+    <div class="fade-in space-y-6">
+      <div>
+        <h1 class="text-2xl font-bold">Descargas</h1>
+        <p class="text-sm text-slate-400 mt-1">Guarda cualquier lección, mazo o referencia en tu dispositivo. Útil para imprimir, compartir o leer offline.</p>
+      </div>
+
+      <div class="space-y-2">
+        <button id="dl-all-btn" class="w-full bg-lvred py-3 rounded-xl font-semibold">📦 Descargar TODO el curso (un archivo .md unificado)</button>
+        <button id="dl-all-anki-btn" class="w-full bg-white/10 py-3 rounded-xl font-medium">🃏 Descargar todas las flashcards (CSV combinado para Anki)</button>
+      </div>
+
+      <section>
+        <h2 class="text-sm uppercase tracking-wider text-slate-300 mb-2 px-1">Lecciones (40)</h2>
+        <div class="space-y-2">${lessonItems}</div>
+      </section>
+
+      <section>
+        <h2 class="text-sm uppercase tracking-wider text-slate-300 mb-2 px-1">Flashcards</h2>
+        <div class="space-y-2">${deckItems}</div>
+      </section>
+
+      <section>
+        <h2 class="text-sm uppercase tracking-wider text-slate-300 mb-2 px-1">Referencias gramaticales</h2>
+        <div class="space-y-2">${grammarItems}</div>
+      </section>
+    </div>`;
+
+  app.querySelectorAll('[data-download]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      try {
+        const text = await fetchText(btn.dataset.download);
+        const mime = btn.dataset.download.endsWith('.csv') ? 'text/csv;charset=utf-8' : 'text/markdown;charset=utf-8';
+        downloadBlob(btn.dataset.name, text, mime);
+      } catch (e) { alert('Error al descargar: ' + e.message); }
+    });
+  });
+
+  document.getElementById('dl-all-btn').addEventListener('click', async () => {
+    const parts = [];
+    parts.push('# Latvisky — Curso completo (40 días)\n\n---\n\n');
+    for (const d of CURRICULUM) {
+      try {
+        const text = await fetchText(d.file);
+        parts.push(`\n\n# ═══ DÍA ${d.day} ═══\n\n${text}\n\n`);
+      } catch (e) { /* skip missing */ }
+    }
+    downloadBlob('latvisky-curso-completo.md', parts.join(''), 'text/markdown;charset=utf-8');
+  });
+
+  document.getElementById('dl-all-anki-btn').addEventListener('click', async () => {
+    const parts = ['letón;español;ejemplo_letón;ejemplo_español'];
+    for (const d of DECKS) {
+      try {
+        const text = await fetchText(d.file);
+        const lines = text.trim().split(/\r?\n/);
+        lines.shift(); // drop header
+        parts.push(...lines);
+      } catch (e) { /* skip */ }
+    }
+    downloadBlob('latvisky-flashcards-todas.csv', parts.join('\n'), 'text/csv;charset=utf-8');
+  });
 }
