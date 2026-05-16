@@ -1,0 +1,92 @@
+{
+  "title": "Quiz Semana 5 — Drills + historia + himno",
+  "description": "10 preguntas sobre escritura A2, oral A2, historia de Letonia y himno nacional (módulo residencia permanente).",
+  "weekRef": 5,
+  "questions": [
+    {
+      "id": 1,
+      "type": "multiple_choice",
+      "context": "Escritura — número de palabras",
+      "question": "¿Cuál es el rango de palabras correcto para la carta corta del examen A2?",
+      "options": ["30-50 palabras", "50-80 palabras", "80-120 palabras", "120-150 palabras"],
+      "answer": 1,
+      "explanation": "50-80 palabras. Menos = puntos restados. Más = puntos restados. La fórmula 7-9 frases cortas te lleva al rango automáticamente."
+    },
+    {
+      "id": 2,
+      "type": "multiple_choice",
+      "context": "Escritura — saludo formal",
+      "question": "¿Cuál es el saludo apropiado para una carta a tu jefe o un desconocido formal?",
+      "options": ["Sveiks!", "Atā!", "Cienījamais kungs,", "Skūpstu,"],
+      "answer": 2,
+      "explanation": "Cienījamais kungs (Sr.) o Cienījamā kundze (Sra.) son las fórmulas formales. Sveiks es informal y Skūpstu/Atā son despedidas, no saludos."
+    },
+    {
+      "id": 3,
+      "type": "translate",
+      "context": "Oral — frase salvavidas",
+      "question": "Traduce: 'Disculpe, ¿podría repetir?' (formal)",
+      "answer": ["Atvainojiet, vai jūs varētu atkārtot", "Atvainojiet, vai jūs varētu atkārtot?", "Atvainojiet, vai Jūs varētu atkārtot", "Atvainojiet, vai Jūs varētu atkārtot?"],
+      "explanation": "Atvainojiet (imperativo formal plural de atvainoties) + Vai jūs varētu (condicional cortés) + atkārtot (infinitivo)."
+    },
+    {
+      "id": 4,
+      "type": "fill_blank",
+      "context": "Historia — fundación",
+      "question": "Completa: 'Latvija dibinājās _____ gadā.' (año de fundación)",
+      "answer": ["1918", "1918."],
+      "explanation": "El 18 de noviembre de 1918, día que celebramos como Latvijas dibināšanas diena."
+    },
+    {
+      "id": 5,
+      "type": "fill_blank",
+      "context": "Historia — independencia restaurada",
+      "question": "Completa: 'Latvija atguva neatkarību _____ gadā.' (año de restauración de facto)",
+      "answer": ["1991", "1991."],
+      "explanation": "21 de agosto de 1991: independencia de facto restaurada tras el colapso de la URSS. La declaración fue antes, el 4 de mayo de 1990."
+    },
+    {
+      "id": 6,
+      "type": "multiple_choice",
+      "context": "Geografía",
+      "question": "¿Cuál es el río más largo que atraviesa Letonia?",
+      "options": ["Lielupe", "Venta", "Daugava", "Gauja"],
+      "answer": 2,
+      "explanation": "Daugava (1020 km totales, 352 en Letonia) es el río más largo. Atraviesa Rīga y desemboca en el golfo de Riga."
+    },
+    {
+      "id": 7,
+      "type": "multiple_choice",
+      "context": "Geografía cultural",
+      "question": "¿Cuántas regiones culturales (kultūrvēsturiskie novadi) tiene Letonia?",
+      "options": ["3", "4", "5", "6"],
+      "answer": 2,
+      "explanation": "5 regiones: Kurzeme, Vidzeme, Latgale, Zemgale, Sēlija."
+    },
+    {
+      "id": 8,
+      "type": "translate",
+      "context": "Himno — primera línea",
+      "question": "Completa la primera línea del himno: '___ , svētī Latviju,'",
+      "answer": ["Dievs"],
+      "explanation": "'Dievs, svētī Latviju!' = 'Dios, bendice a Letonia'. Compuesto por Kārlis Baumanis en 1873."
+    },
+    {
+      "id": 9,
+      "type": "multiple_choice",
+      "context": "Símbolos nacionales",
+      "question": "¿Cuáles son los colores de la bandera letona (de arriba a abajo)?",
+      "options": ["Rojo-blanco-rojo (carmesí)", "Azul-blanco-rojo", "Blanco-rojo-blanco", "Verde-blanco-rojo"],
+      "answer": 0,
+      "explanation": "Carmesí-blanco-carmesí (proporciones 2:1:2). Es uno de los flagos más antiguos del mundo en uso (mencionado por primera vez en 1279)."
+    },
+    {
+      "id": 10,
+      "type": "fill_blank",
+      "context": "Parlamento letón",
+      "question": "Completa: 'Latvijas parlaments saucas ___' (con 100 diputados)",
+      "answer": ["Saeima"],
+      "explanation": "La Saeima es el parlamento unicameral de Letonia, con 100 diputados elegidos por 4 años."
+    }
+  ]
+}

@@ -1,6 +1,15 @@
-# Latvisky — Plan 40 días para examen A2 de letón
+# Latvisky — Curso completo de 40 días para examen A2 de letón
 
-Sistema personalizado para alcanzar el nivel A2 oficial (Valsts valodas prasmes pārbaude) en 40 días, con el objetivo de obtener la **residencia permanente en Letonia**.
+Sistema completo y personalizado para alcanzar el nivel A2 oficial (Valsts valodas prasmes pārbaude) en 40 días, con el objetivo de obtener la **residencia permanente en Letonia**.
+
+## 📚 Contenido del curso
+
+- **40 lecciones diarias** (1 archivo `.md` por día, 45-60 min)
+- **28 archivos de referencia gramatical** organizados por tema
+- **5 mazos de flashcards** (~530 palabras con ejemplos, formato Anki)
+- **5 quizzes interactivos** con corrección automática
+- **2 simulacros completos** del examen real (días 34 y 37)
+- **Módulo de historia, geografía e himno** para residencia permanente
 
 Funciona en dos modos:
 

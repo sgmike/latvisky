@@ -1,7 +1,7 @@
 // Service Worker — Latvisky
 // Network-first with cache fallback. Updates content when online.
 
-const CACHE = 'latvisky-v4';
+const CACHE = 'latvisky-v5';
 const SHELL = [
   './',
   './index.html',

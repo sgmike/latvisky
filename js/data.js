@@ -69,6 +69,7 @@ const DECKS = [
   { id: 2, week: 2, name: "Semana 2 — Casa, cuerpo, gustos", file: "flashcards/semana-02.csv", topic: "Vivienda, muebles, cuerpo humano, verbos de gusto" },
   { id: 3, week: 3, name: "Semana 3 — Pasado, compras, salud", file: "flashcards/semana-03.csv", topic: "Pasado, posesivos, compras, direcciones, salud" },
   { id: 4, week: 4, name: "Semana 4 — Futuro, modales, formulario", file: "flashcards/semana-04.csv", topic: "Futuro, jā-, comparativos, clima, restaurante, anketa" },
+  { id: 5, week: 5, name: "Semana 5 — Examen + historia + himno", file: "flashcards/semana-05.csv", topic: "Vocabulario PR, historia, geografía, himno, frases de oral y escritura" },
 ];
 
 const QUIZZES = [
@@ -76,6 +77,7 @@ const QUIZZES = [
   { id: 2, week: 2, name: "Quiz Semana 2", file: "quizzes/semana-02.json" },
   { id: 3, week: 3, name: "Quiz Semana 3", file: "quizzes/semana-03.json" },
   { id: 4, week: 4, name: "Quiz Semana 4", file: "quizzes/semana-04.json" },
+  { id: 5, week: 5, name: "Quiz Semana 5", file: "quizzes/semana-05.json" },
 ];
 
 const GRAMMAR_TOPICS = [
@@ -104,6 +106,9 @@ const GRAMMAR_TOPICS = [
   { id: 25, title: "Conectores y conjunciones", file: "gramatica/25-conectores-conjunciones.md", emoji: "🔌" },
   { id: 26, title: "Imperativo + cortesía", file: "gramatica/26-imperativo.md", emoji: "📢" },
   { id: 27, title: "Escritura: formularios A2", file: "gramatica/27-escritura-formularios.md", emoji: "📝" },
+  { id: 31, title: "Cartas modelo A2", file: "gramatica/31-cartas-modelo.md", emoji: "✉️" },
+  { id: 36, title: "Historia y geografía LV (PR)", file: "gramatica/36-historia-letonia.md", emoji: "🇱🇻" },
+  { id: 38, title: "Himno nacional letón", file: "gramatica/38-himno-nacional.md", emoji: "🎵" },
 ];
 
 // Conversation topics
