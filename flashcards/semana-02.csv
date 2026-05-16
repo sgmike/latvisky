@@ -1,0 +1,110 @@
+letón;español;ejemplo_letón;ejemplo_español
+māja;casa;Mana māja ir Rīgā.;Mi casa está en Riga.
+dzīvoklis;apartamento;Mēs pērkam jaunu dzīvokli.;Compramos un apartamento nuevo.
+istaba;habitación;Manā istabā ir liels logs.;En mi habitación hay una ventana grande.
+virtuve;cocina;Es vāru virtuvē.;Cocino en la cocina.
+viesistaba;sala de estar;Viesistabā ir dīvāns.;En la sala hay un sofá.
+guļamistaba;dormitorio;Guļamistabā ir gulta.;En el dormitorio hay una cama.
+vannas istaba;baño;Vannas istaba ir maza.;El baño es pequeño.
+balkons;balcón;Uz balkona aug puķes.;En el balcón crecen flores.
+dārzs;jardín;Mūsu dārzs ir liels.;Nuestro jardín es grande.
+galds;mesa;Uz galda ir grāmata.;Encima de la mesa hay un libro.
+krēsls;silla;Krēsls ir blakus galdam.;La silla está al lado de la mesa.
+gulta;cama;Es guļu gultā.;Duermo en la cama.
+dīvāns;sofá;Mēs sēžam uz dīvāna.;Estamos sentados en el sofá.
+skapis;armario;Skapī ir drēbes.;En el armario hay ropa.
+plaukts;estantería;Plauktā stāv grāmatas.;En la estantería hay libros.
+spogulis;espejo;Es skatos spogulī.;Me miro en el espejo.
+lampa;lámpara;Lampa ir uz galda.;La lámpara está encima de la mesa.
+paklājs;alfombra;Paklājs ir mīksts.;La alfombra es blanda.
+logs;ventana;Atver logu, lūdzu!;Abre la ventana, por favor.
+durvis;puerta (siempre plural);Aizver durvis!;Cierra la puerta.
+siena;pared;Uz sienas ir glezna.;En la pared hay un cuadro.
+grīda;suelo;Grīda ir tīra.;El suelo está limpio.
+griesti;techo (siempre plural);Griesti ir balti.;El techo es blanco.
+televizors;televisor;Es skatos televizoru.;Veo la televisión.
+ledusskapis;refrigerador;Ledusskapī ir piens.;En el refrigerador hay leche.
+plīts;estufa;Plīts ir karsta.;La estufa está caliente.
+trauki;platos / vajilla;Trauki ir izlietnē.;Los platos están en el fregadero.
+galva;cabeza;Man sāp galva.;Me duele la cabeza.
+mati;cabello;Maniem matiem ir tumšs tonis.;Mi cabello tiene tono oscuro.
+seja;cara;Viņas seja ir skaista.;Su cara es bonita.
+acs;ojo;Manas acis ir zilas.;Mis ojos son azules.
+acis;ojos (plural);Es aizveru acis.;Cierro los ojos.
+auss;oreja;Auss man sāp.;Me duele la oreja.
+deguns;nariz;Viņam ir liels deguns.;Él tiene una nariz grande.
+mute;boca;Atver muti, lūdzu.;Abre la boca, por favor.
+mēle;lengua;Mēli, lūdzu, parādiet!;Saque la lengua, por favor.
+zobs;diente;Man sāp zobs.;Me duele un diente.
+zobi;dientes (pl);Es tīru zobus.;Me cepillo los dientes.
+kakls;cuello / garganta;Man sāp kakls.;Me duele la garganta.
+plecs;hombro;Mans plecs ir stīvs.;Mi hombro está rígido.
+roka;mano / brazo;Dod man savu roku.;Dame tu mano.
+pirksts;dedo;Es ievainoju pirkstu.;Me lastimé un dedo.
+mugura;espalda;Man sāp mugura.;Me duele la espalda.
+vēders;estómago;Man sāp vēders.;Me duele el estómago.
+sirds;corazón;Mana sirds sit ātri.;Mi corazón late rápido.
+kāja;pie / pierna;Manas kājas ir nogurušas.;Mis piernas están cansadas.
+ceļgals;rodilla;Mans ceļgals sāp.;Me duele la rodilla.
+āda;piel;Viņas āda ir maiga.;Su piel es suave.
+ārsts;médico;Es eju pie ārsta.;Voy al médico.
+slimnīca;hospital;Slimnīca ir tuvu.;El hospital está cerca.
+slims;enfermo (m);Es esmu slims.;Estoy enfermo.
+slima;enferma (f);Viņa ir slima.;Ella está enferma.
+drudzis;fiebre;Man ir drudzis.;Tengo fiebre.
+zāles;medicina (pl);Es dzeru zāles.;Tomo medicinas.
+sāpes;dolor (pl);Galvassāpes mani moka.;El dolor de cabeza me molesta.
+patikt;gustar;Man patīk Latvija.;Me gusta Letonia.
+garšot;gustar (comida);Man garšo zupa.;Me gusta la sopa.
+mīlēt;amar;Es mīlu savu ģimeni.;Amo a mi familia.
+ienīst;odiar;Es ienīstu melus.;Odio las mentiras.
+interesēt;interesar;Mani interesē vēsture.;Me interesa la historia.
+ļoti;mucho;Man ļoti patīk kafija.;Me gusta mucho el café.
+maz;poco;Es maz runāju.;Hablo poco.
+daudz;mucho;Es daudz lasu.;Leo mucho.
+drusku;un poco;Es zinu drusku latviski.;Sé un poco de letón.
+vairāk;más;Man patīk vairāk tēja.;Me gusta más el té.
+mazāk;menos;Es strādāju mazāk.;Trabajo menos.
+vispār;en general;Vispār man patīk Latvija.;En general me gusta Letonia.
+nekad;nunca;Es nekad neēdu cūkgaļu.;Nunca como cerdo.
+vienmēr;siempre;Es vienmēr piecelos agri.;Siempre me levanto temprano.
+bieži;a menudo;Es bieži ceļoju.;Viajo a menudo.
+dažreiz;a veces;Dažreiz mēs ejam kino.;A veces vamos al cine.
+mūzika;música;Man patīk klasiskā mūzika.;Me gusta la música clásica.
+kino;cine;Es eju kino.;Voy al cine.
+grāmata;libro;Man patīk lasīt grāmatas.;Me gusta leer libros.
+filma;película;Šī filma ir interesanta.;Esta película es interesante.
+sports;deporte;Es spēlēju sportu.;Practico deporte.
+brīvais laiks;tiempo libre;Brīvajā laikā es ceļoju.;En mi tiempo libre viajo.
+vaļasprieks;hobby;Mans vaļasprieks ir fotografēšana.;Mi hobby es la fotografía.
+lasīt;leer;Es lasu katru vakaru.;Leo cada noche.
+rakstīt;escribir;Es rakstu vēstuli.;Estoy escribiendo una carta.
+gaidīt;esperar;Es gaidu autobusu.;Espero el autobús.
+mācīt;enseñar;Skolotājs māca matemātiku.;El profesor enseña matemáticas.
+mācīties;aprender / estudiar;Es mācos latviešu valodu.;Estudio letón.
+darīt;hacer;Ko tu dari šovakar?;¿Qué haces esta noche?
+gribēt;querer;Es gribu pirkt maizi.;Quiero comprar pan.
+varēt;poder;Vai tu vari man palīdzēt?;¿Puedes ayudarme?
+palīdzēt;ayudar;Es palīdzu māsai.;Ayudo a mi hermana.
+ticēt;creer;Es ticu tev.;Te creo.
+piedot;perdonar;Piedod man!;¡Perdóname!
+ņemt;tomar;Ņem šo grāmatu.;Toma este libro.
+dot;dar;Es dodu māsai dāvanu.;Le doy un regalo a mi hermana.
+pirkt;comprar;Es pērku maizi.;Compro pan.
+saukt;llamar;Mani sauc Andris.;Me llamo Andris.
+sākt;empezar;Mēs sākam darbu astoņos.;Empezamos el trabajo a las ocho.
+strādāt;trabajar;Es strādāju birojā.;Trabajo en una oficina.
+dzīvot;vivir;Mēs dzīvojam Latvijā.;Vivimos en Letonia.
+ceļot;viajar;Man patīk ceļot.;Me gusta viajar.
+dejot;bailar;Mēs dejojam katru sestdienu.;Bailamos cada sábado.
+dziedāt;cantar;Viņa skaisti dzied.;Ella canta bonito.
+spēlēt;jugar;Bērni spēlē parkā.;Los niños juegan en el parque.
+staigāt;pasear;Mēs staigājam pa pilsētu.;Paseamos por la ciudad.
+veikals;tienda;Es eju uz veikalu.;Voy a la tienda.
+birojs;oficina;Mans birojs ir centrā.;Mi oficina está en el centro.
+skola;escuela;Skola sākas septiņos.;La escuela empieza a las siete.
+universitāte;universidad;Es studēju universitātē.;Estudio en la universidad.
+darbs;trabajo;Mans darbs ir interesants.;Mi trabajo es interesante.
+mašīna;coche;Man nav mašīnas.;No tengo coche.
+nauda;dinero;Man nav naudas.;No tengo dinero.
+laiks;tiempo;Man nav laika.;No tengo tiempo.

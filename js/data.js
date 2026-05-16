@@ -66,7 +66,7 @@ const WEEKS = [
 
 const DECKS = [
   { id: 1, week: 1, name: "Semana 1 — Fundamentos", file: "flashcards/semana-01.csv", topic: "Saludos, pronombres, būt, familia" },
-  // Following weeks will appear as Claude generates them
+  { id: 2, week: 2, name: "Semana 2 — Casa, cuerpo, gustos", file: "flashcards/semana-02.csv", topic: "Vivienda, muebles, cuerpo humano, verbos de gusto" },
 ];
 
 const QUIZZES = [
@@ -76,6 +76,14 @@ const QUIZZES = [
 const GRAMMAR_TOPICS = [
   { id: 1, title: "Alfabeto y pronunciación", file: "gramatica/01-alfabeto-pronunciacion.md", emoji: "🔤" },
   { id: 2, title: "Pronombres + verbo būt", file: "gramatica/02-pronombres-y-but.md", emoji: "👥" },
+  { id: 3, title: "Sustantivos: género y 6 declinaciones", file: "gramatica/03-sustantivos-genero-declinaciones.md", emoji: "📚" },
+  { id: 4, title: "Verbos grupo 2 (presente)", file: "gramatica/04-verbos-grupo-2-presente.md", emoji: "🗣️" },
+  { id: 5, title: "Verbos grupo 3 (presente)", file: "gramatica/05-verbos-grupo-3-presente.md", emoji: "✍️" },
+  { id: 6, title: "Verbos grupo 1 (irregulares)", file: "gramatica/06-verbos-grupo-1-presente.md", emoji: "⚡" },
+  { id: 7, title: "Números, hora, fechas", file: "gramatica/07-numeros-hora-fechas.md", emoji: "🔢" },
+  { id: 8, title: "Nominativo + Acusativo", file: "gramatica/08-nominativo-acusativo.md", emoji: "🎯" },
+  { id: 9, title: "Genitivo", file: "gramatica/09-genitivo.md", emoji: "🔗" },
+  { id: 10, title: "Dativo", file: "gramatica/10-dativo.md", emoji: "🎁" },
 ];
 
 // Conversation topics
