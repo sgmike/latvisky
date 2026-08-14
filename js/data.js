@@ -107,6 +107,8 @@ const GRAMMAR_TOPICS = [
   { id: 26, title: "Imperativo + cortesía", file: "gramatica/26-imperativo.md", emoji: "📢" },
   { id: 27, title: "Escritura: formularios A2", file: "gramatica/27-escritura-formularios.md", emoji: "📝" },
   { id: 31, title: "Cartas modelo A2", file: "gramatica/31-cartas-modelo.md", emoji: "✉️" },
+  { id: 32, title: "TODOS los tipos de carta del examen", file: "gramatica/32-tipos-de-carta-examen.md", emoji: "📮" },
+  { id: 33, title: "Descripción de imágenes (oral)", file: "gramatica/33-descripcion-imagenes-examen.md", emoji: "🖼️" },
   { id: 36, title: "Historia y geografía LV (PR)", file: "gramatica/36-historia-letonia.md", emoji: "🇱🇻" },
   { id: 38, title: "Himno nacional letón", file: "gramatica/38-himno-nacional.md", emoji: "🎵" },
 ];
